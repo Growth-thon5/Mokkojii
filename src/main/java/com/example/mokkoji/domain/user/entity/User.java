@@ -25,7 +25,7 @@ public class User {
     private Role role; // PERSONAL, BUSINESS
 
     @Enumerated(EnumType.STRING)
-    private OAuthProvider social; // KAKAO, EMAIL
+    private AuthProvider provider; // KAKAO, EMAIL
     private String socialId;   // 해당 플랫폼의 고유 사용자 ID
 
 

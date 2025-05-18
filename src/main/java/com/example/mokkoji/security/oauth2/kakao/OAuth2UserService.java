@@ -1,6 +1,6 @@
 package com.example.mokkoji.security.oauth2.kakao;
 
-import com.example.mokkoji.domain.user.entity.OAuthProvider;
+import com.example.mokkoji.domain.user.entity.AuthProvider;
 import com.example.mokkoji.domain.user.entity.Role;
 import com.example.mokkoji.domain.user.entity.User;
 import com.example.mokkoji.domain.user.repository.UserRepository;
@@ -47,8 +47,8 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
         log.info("userInfo: {}", userInfo.getUserName());
         log.info("userInfo: {}", userInfo.getEmail());
 
-        OAuthProvider social = OAuthProvider.valueOf(userInfo.getProvider());
-        Optional<User> existUser = userRepository.findBySocialAndSocialId(social, userInfo.getProviderId());
+        AuthProvider provider = AuthProvider.valueOf(userInfo.getProvider());
+        Optional<User> existUser = userRepository.findByProviderAndSocialId(provider, userInfo.getProviderId());
 
         User user = null;
         // 존재한다면 로그인
@@ -58,7 +58,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
         }else{
            user = User.builder()
-                    .social(social)
+                    .provider(provider)
                     .socialId(userInfo.getProviderId())
                     .username(userInfo.getUserName())
                     .email(userInfo.getEmail())
