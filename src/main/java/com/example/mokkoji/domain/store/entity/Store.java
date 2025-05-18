@@ -24,7 +24,7 @@ public class Store extends BaseTimeEntity {
 
     private String name; // 가게명
     private String description; // 가게 설명
-    private Integer cheerCount = 0; // 응원 수
+    private int cheerCount = 0; // 응원 수
     private String thumbnail; // 대표 이미지 URL
 
     @Embedded

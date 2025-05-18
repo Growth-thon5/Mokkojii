@@ -1,13 +1,17 @@
 package com.example.mokkoji.domain.user.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor
 @Table(name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +23,10 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role; // PERSONAL, BUSINESS
+
+    @Enumerated(EnumType.STRING)
+    private OAuthProvider social; // KAKAO, EMAIL
+    private String socialId;   // 해당 플랫폼의 고유 사용자 ID
 
 
 }
