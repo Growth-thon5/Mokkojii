@@ -16,16 +16,16 @@ import static org.springframework.http.HttpMethod.*;
 @Component
 public class RequestMatcherHolder {
 
-
     private static final List<RequestInfo> REQUEST_INFO_LIST = List.of(
-
             // 공통
             new RequestInfo(OPTIONS, "/**", null),
             new RequestInfo(GET, "/", null),
-            new RequestInfo(GET, "/login", null),
+            new RequestInfo(GET, "/api/auth", null),
             new RequestInfo(POST, "/error", null),
 
             // auth
+            new RequestInfo(POST, "/api/auth/join", null),
+            new RequestInfo(POST, "/api/auth/login", null),
             new RequestInfo(POST, "/api/v1/oauth2/**", null),
 
             // user
@@ -34,9 +34,6 @@ public class RequestMatcherHolder {
             // admin
             new RequestInfo(GET, "/api/PERSONAL/**", Role.PERSONAL),
             new RequestInfo(POST, "/api/admin/**", Role.ADMIN),
-
-
-
 
             // static resources
             new RequestInfo(GET, "/docs/**", null),
@@ -54,7 +51,6 @@ public class RequestMatcherHolder {
             // 정적 아이콘 요청
             new RequestInfo(GET, "/favicon.ico", null),
             new RequestInfo(GET, "/apple-touch-icon.png", null)
-
     );
 
     private final ConcurrentHashMap<String, RequestMatcher> reqMatcherCacheMap = new ConcurrentHashMap<>();
