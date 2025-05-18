@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 @Builder
-@RedisHash
+@RedisHash("JwtToken")
 public class JwtToken {
 
     @Id

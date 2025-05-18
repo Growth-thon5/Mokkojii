@@ -1,6 +1,8 @@
 package com.example.mokkoji.security.jwt.service;
 
 import com.example.mokkoji.domain.user.repository.UserRepository;
+import com.example.mokkoji.global.response.CustomException;
+import com.example.mokkoji.global.response.ErrorCode;
 import com.example.mokkoji.security.jwt.domain.JwtToken;
 import com.example.mokkoji.security.jwt.domain.JwtTokenRedisRepository;
 import com.example.mokkoji.security.jwt.util.JwtProvider;
@@ -26,22 +28,21 @@ import static com.example.mokkoji.security.jwt.util.JwtProvider.REFRESH_TOKEN_EX
 @RequiredArgsConstructor
 public class JwtTokenService  {
 
-    private final JwtProvider provider;
-    private final JwtTokenRedisRepository repository;
-
+    private final JwtProvider jwtProvider;
     // 유저 가져오기
     private final UserRepository userRepository;
+    private final JwtTokenRedisRepository jwtTokenRedisRepository;
 
     // 액세스 토큰 생성하기
     public String createAccessToken(Authentication authentication) {
-        return provider.generateAccessToken(authentication);
+        return jwtProvider.generateAccessToken(authentication);
     }
 
     // 리프레쉬 토큰 생성하기
     public void createRefreshToken(HttpServletResponse response, Authentication authentication) {
 
         // 토큰을 발급한다.
-        String refreshToken = provider.generateRefreshToken(authentication);
+        String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
         // 만료 시간 설정
         LocalDateTime plusSeconds = LocalDateTime.now().plusSeconds(REFRESH_TOKEN_EXPIRATION_TIME);
@@ -52,32 +53,38 @@ public class JwtTokenService  {
 
         // 해당 토큰을 레디스에 저장한다.
         JwtToken jwtToken = JwtToken.of(principalDetails.getId(), refreshToken, expiredAt);
-        repository.save(jwtToken);
+        jwtTokenRedisRepository.save(jwtToken);
 
         // 토큰을 쿠키에 저장한다.
         setRefreshTokenInCookie(response, refreshToken);
     }
 
     // 재발급 하기
-    public String reissueByRefreshToken(HttpServletRequest request, HttpServletResponse response) {
+    public String reissueByRefreshToken(HttpServletRequest request) {
 
-        // 쿠키에서 리프레쉬 토큰 가져오기
-        String refreshToken = getRefreshTokenFromCookie(request)
-                .orElseThrow(() -> new NoSuchElementException("쿠키에 RefreshToken 존재하지 않습니다."));
+        // 1. 요청 헤더에서 Refresh Token 꺼내기
+        String header = request.getHeader("Authorization");
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new CustomException(ErrorCode.TOKEN_NOT_FOUND);
+        }
+        String refreshToken = header.substring(7);
 
-        // 쿠키 validate 진행한다.
-        if (!provider.validateToken(refreshToken)) {
-            throw new SecurityException("유효하지 않은 토큰입니다.");
-        };
+        // 2. Redis에서 해당 refreshToken 존재 여부 확인
+        JwtToken jwtToken = jwtTokenRedisRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new CustomException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
-        // DB에 존재하는지 체크한다.
-        JwtToken jwtToken = repository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new SecurityException("DB에 RefreshToken 존재하지 않습니다."));
+        // 3. 토큰 유효성 검사
+        if (!jwtProvider.validateToken(refreshToken)) {
+            // 유효하지 않은 토큰이면 삭제
+            jwtTokenRedisRepository.deleteByRefreshToken(refreshToken);
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
+        }
 
-        // 유저를 조회한다.
-        Authentication authentication = provider.getAuthentication(jwtToken.getRefreshToken());
+        // 4. 토큰이 유효하다면 Authentication 생성
+        Authentication authentication = jwtProvider.getAuthentication(refreshToken);
 
-        return provider.generateAccessToken(authentication);
+        // 5. 새로운 Access Token 발급
+        return jwtProvider.generateAccessToken(authentication);
     }
 
     public void deleteRefreshToken(HttpServletRequest request, HttpServletResponse response) {
@@ -85,12 +92,23 @@ public class JwtTokenService  {
         // 쿠키를 가져오기
         String refreshToken = getRefreshTokenFromCookie(request)
                 .orElseThrow(() -> new SecurityException("쿠키에 RefreshToken 존재하지 않습니다."));
+        System.out.println("쿠키에서 꺼낸 refreshToken = " + refreshToken);
 
         // 쿠키를 null 설정
         deleteRefreshTokenFromCookies(response);
 
         // DB에서도 삭제
-        repository.deleteByRefreshToken(refreshToken);
+        Optional<JwtToken> jwtTokenOpt = jwtTokenRedisRepository.findByRefreshToken(refreshToken);
+
+        if(jwtTokenOpt.isPresent()) {
+            System.out.println("토큰 발견: " + jwtTokenOpt.get());
+            jwtTokenRedisRepository.delete(jwtTokenOpt.get());
+            System.out.println("삭제 시도 완료");
+        } else {
+            System.out.println("토큰을 찾지 못했습니다.");
+        }
+
+
     }
 
     /// 내부 함수
