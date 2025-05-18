@@ -16,5 +16,25 @@ services:
       - ./mysql:/var/lib/mokkoji-mysql
     command: --default-authentication-plugin=mysql_native_password
 
+  # Redis
+  redis:
+    image: redis:7.2.5
+    container_name: mokkoji-redis
+    ports:
+      - '6379:6379'
+
+
+  # MongoDB
+  mongodb:
+    image: mongo:6.0.16
+    container_name: mokkoji-mongodb
+    ports:
+      - '37017:27017'
+    volumes:
+      - ./mongodb/data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
 
 
