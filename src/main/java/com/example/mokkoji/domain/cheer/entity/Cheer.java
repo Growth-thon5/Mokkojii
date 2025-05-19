@@ -1,9 +1,10 @@
 package com.example.mokkoji.domain.cheer.entity;
 import com.example.mokkoji.domain.store.entity.Store;
-import com.example.mokkoji.domain.tag.entity.CheerTag;
+import com.example.mokkoji.domain.tag.entity.TagType;
 import com.example.mokkoji.domain.user.entity.User;
 import com.example.mokkoji.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
+@AllArgsConstructor
 @Getter @NoArgsConstructor
 @Table(name = "cheer")
 public class Cheer extends BaseTimeEntity {
@@ -19,8 +22,12 @@ public class Cheer extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "cheer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CheerTag> cheerTagList = new ArrayList<>();
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "cheer_tag", joinColumns = @JoinColumn(name = "cheer_id"))
+    @Column(name = "tag_type")
+    private List<TagType> cheerTagList = new ArrayList<>();
+
 
     private String content;
 
@@ -35,16 +42,14 @@ public class Cheer extends BaseTimeEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Builder
-    public Cheer(String content, User user, Store store) {
-        this.content = content;
-        this.user = user;
-        this.store = store;
-    }
 
-    // Helper methods for bidirectional relationship management
-    public void addCheerTag(CheerTag cheerTag) {
-        this.cheerTagList.add(cheerTag);
+    public static Cheer of(User user, String content, Store store) {
+        return Cheer.builder()
+                .user(user)
+                .content(content)
+                .store(store)
+                .cheerTagList(new ArrayList<>())
+                .build();
     }
 
     public void addCheerComment(CheerComment cheerComment) {
