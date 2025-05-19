@@ -2,6 +2,8 @@
 package com.example.mokkoji.domain.store.entity;
 
 import com.example.mokkoji.domain.cheer.entity.Cheer;
+import com.example.mokkoji.domain.tag.entity.StoreTag;
+import com.example.mokkoji.domain.tag.entity.TagType;
 import com.example.mokkoji.domain.user.entity.User;
 import com.example.mokkoji.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
@@ -43,7 +45,21 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cheer> cheerList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StoreTag> storeTagList = new ArrayList<>();
+
+
     // Helper methods for bidirectional relationship management
+    // 응원 태그 추가
+    public void addTag(TagType tagType) {
+        for (StoreTag st : storeTagList) {
+            if (st.getTagType() == tagType) {
+                st.incrementCount();
+                return;
+            }
+        }
+        storeTagList.add(new StoreTag(this, tagType, 1));
+    }
     public void addMenu(Menu menu) {
         this.menuList.add(menu);
         menu.setStore(this);

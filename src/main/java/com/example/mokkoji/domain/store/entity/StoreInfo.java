@@ -14,12 +14,12 @@ public class StoreInfo {
 
     private String address;          // 주소
     private String directions;       // 오시는 길
-    private String openingHours;     // 영업 시작 시간
-    private String closingHours;     // 영업 종료 시간
+    private String openingTime;     // 영업 시작 시간
+    private String closingTime;     // 영업 종료 시간
     private String phoneNumber;      // 전화번호
 
     private String businessNumber;   // 사업자 등록 번호
     private LocalDate openingDate;   // 개업 일자
 
-    private String certificationPath; // 소상공인 확인서 파일 경로
+    private String certification; // 소상공인 확인서
 }

@@ -7,23 +7,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Getter @NoArgsConstructor
+@Getter
+@NoArgsConstructor
 @Table(name = "cheer_comment")
 public class CheerComment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_comment_id")
-    private CheerComment parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<CheerComment> children = new ArrayList<>();
 
     private String content;
 
@@ -36,27 +27,14 @@ public class CheerComment extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public CheerComment(String content, User user, Cheer cheer, CheerComment parent) {
+    public CheerComment(String content, User user, Cheer cheer) {
         this.content = content;
         this.user = user;
         this.cheer = cheer;
-        if (parent != null) {
-            this.parent = parent;
-            parent.getChildren().add(this);
-        }
     }
 
-    // Helper methods for bidirectional relationship management
+    // 연관관계 편의 메서드
     public void setCheer(Cheer cheer) {
         this.cheer = cheer;
-    }
-
-    public void addChildComment(CheerComment child) {
-        this.children.add(child);
-        child.setParent(this);
-    }
-
-    public void setParent(CheerComment parent) {
-        this.parent = parent;
     }
 }

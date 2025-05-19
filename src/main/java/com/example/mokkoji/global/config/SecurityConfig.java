@@ -17,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final JwtTokenProvider jwtTokenProvider;
     private final OAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
@@ -28,29 +27,25 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Swagger 접근 허용
-                        .requestMatchers(
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
+                                // Swagger 접근 허용
+                                .requestMatchers(
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
 
-                        // 요청 허용
-                        .requestMatchers("/**").permitAll()
-                        .anyRequest().authenticated()
+                                // 요청 허용
+                                .requestMatchers("/**").permitAll()
+//                        .anyRequest().authenticated() // 나중에 위에거 지우고 주석 제거
                 )
-                // 헤더 토큰 검사
-//                .addFilterBefore(new TokenAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-                // 서버가 세션을 생성하지 않고 요청하마자 jwt토큰으로 인증을 처리???
+                // 서버가 세션을 생성하지 않고 요청하마자 jwt토큰으로 인증을 처리
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-        // oauth2 설정
-                .oauth2Login(oauth -> // OAuth2 로그인 기능에 대한 여러 설정의 진입점
-                // OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
-                oauth.userInfoEndpoint(c -> c.userService(oAuth2UserService))
-                        // 로그인 성공 시 핸들러
-                        .successHandler(oAuth2SuccessHandler));
+                .oauth2Login(oauth ->
+                        oauth.userInfoEndpoint(c -> c.userService(oAuth2UserService))
+                                .successHandler(oAuth2SuccessHandler));
 
+        // JWT 인증 필터를 스프링 시큐리티 필터 체인에 넣는 방식
 //                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
         return http.build();
