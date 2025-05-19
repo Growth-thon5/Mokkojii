@@ -2,6 +2,7 @@
 package com.example.mokkoji.domain.store.entity;
 
 import com.example.mokkoji.domain.cheer.entity.Cheer;
+import com.example.mokkoji.domain.store.controller.dto.request.StoreRegisterRequest;
 import com.example.mokkoji.domain.tag.entity.StoreTag;
 import com.example.mokkoji.domain.tag.entity.TagType;
 import com.example.mokkoji.domain.user.entity.User;
@@ -9,6 +10,8 @@ import com.example.mokkoji.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +32,16 @@ public class Store extends BaseTimeEntity {
     private int cheerCount = 0; // 응원 수
     private String thumbnail; // 대표 이미지 URL
 
-    @Embedded
-    private StoreInfo storeInfo;
+    private String address;          // 주소
+    private String directions;       // 오시는 길
+    private String openingTime;     // 영업 시작 시간
+    private String closingTime;     // 영업 종료 시간
+    private String phoneNumber;      // 전화번호
+    private String businessType;     // 업종
+    private String businessNumber;   // 사업자 등록 번호
+    private LocalDateTime openingDate;   // 개업 일자
 
+    private String certification; // 소상공인 확인서
     @Enumerated(EnumType.STRING)
     private StoreStatus status; // 승인 여부 (PENDING, APPROVED 등)
 
@@ -48,6 +58,19 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoreTag> storeTagList = new ArrayList<>();
 
+    public static Store of(StoreRegisterRequest request) {
+        return Store.builder()
+                .name(request.name())
+                .address(request.address())
+                .phoneNumber(request.phoneNumber())
+                .businessType(request.businessType())
+                .openingDate(request.openingDate())
+                .businessNumber(request.businessNumber())
+                .certification(request.certification())
+                .status(StoreStatus.PENDING)
+                .build();
+    }
+
 
     // Helper methods for bidirectional relationship management
     // 응원 태그 추가
@@ -60,6 +83,7 @@ public class Store extends BaseTimeEntity {
         }
         storeTagList.add(new StoreTag(this, tagType, 1));
     }
+
     public void addMenu(Menu menu) {
         this.menuList.add(menu);
         menu.setStore(this);
