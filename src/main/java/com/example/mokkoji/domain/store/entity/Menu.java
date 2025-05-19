@@ -1,5 +1,6 @@
 package com.example.mokkoji.domain.store.entity;
 
+import com.example.mokkoji.domain.store.controller.dto.request.MenuRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +33,14 @@ public class Menu {
         if (!store.getMenuList().contains(this)) {
             store.getMenuList().add(this);
         }
+    }
+
+    //
+    public static Menu of(MenuRequest menuRequest) {
+        return Menu.builder()
+                .menuName(menuRequest.name())
+                .menuDescription(menuRequest.description())
+                .imageUrl(menuRequest.imageUrl())
+                .build();
     }
 }

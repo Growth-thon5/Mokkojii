@@ -35,16 +35,16 @@ public class StoreOwnerController {
         return ApiResponse.ok("가게가 정보가 추가되었습니다.");
     }
 
-//    //  가게 상품 등록
-//    @PostMapping("/{storeId}/products")
-//    public ApiResponse<?> addMenu(@PathVariable Long storeId,@Valid @RequestBody MenuListRequest request) {
-//        List<MenuRequest> menus = request.menus();
-//        for (MenuRequest menu : menus) {
-//
-//            storeOwnerService.addMenu(storeId,menu);
-//        }
-//        return ApiResponse.ok("메뉴가 생성되었습니다.");
-//    }
+    //  가게 상품 등록
+    @PostMapping("/{storeId}/products")
+    public ApiResponse<?> addMenu(@PathVariable Long storeId,@Valid @RequestBody MenuListRequest request) {
+        List<MenuRequest> menus = request.menus();
+        for (MenuRequest menu : menus) {
+
+            storeOwnerService.addMenu(storeId,menu);
+        }
+        return ApiResponse.ok("메뉴가 생성되었습니다.");
+    }
 
     // 관리자 승인
 
