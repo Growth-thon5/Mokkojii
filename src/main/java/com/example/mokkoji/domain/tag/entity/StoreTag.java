@@ -10,7 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class StoreTag {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
