@@ -32,6 +32,9 @@ public class CheerComment extends BaseTimeEntity {
         this.user = user;
         this.cheer = cheer;
     }
+    public void updateContent(String content) {
+        this.content = content;
+    }
 
     // 연관관계 편의 메서드
     public void setCheer(Cheer cheer) {
