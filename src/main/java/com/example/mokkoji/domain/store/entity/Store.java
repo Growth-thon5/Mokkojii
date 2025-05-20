@@ -2,6 +2,7 @@
 package com.example.mokkoji.domain.store.entity;
 
 import com.example.mokkoji.domain.cheer.entity.Cheer;
+import com.example.mokkoji.domain.store.controller.dto.request.AddStoreInfoRequest;
 import com.example.mokkoji.domain.store.controller.dto.request.StoreRegisterRequest;
 import com.example.mokkoji.domain.tag.entity.StoreTag;
 import com.example.mokkoji.domain.tag.entity.TagType;
@@ -58,9 +59,14 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoreTag> storeTagList = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "location_id") // Store 테이블에 외래키로 location_id 생성
+    private Location location;
+
     public static Store of(StoreRegisterRequest request) {
         return Store.builder()
                 .name(request.name())
+                .description(request.description())
                 .address(request.address())
                 .phoneNumber(request.phoneNumber())
                 .businessType(request.businessType())
@@ -101,5 +107,12 @@ public class Store extends BaseTimeEntity {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public void addStoreInfo(AddStoreInfoRequest request) {
+        this.directions = request.directions();
+        this.openingTime = request.openingTime();
+        this.closingTime = request.closingTime();
+        this.thumbnail = request.thumbnail();
     }
 }
