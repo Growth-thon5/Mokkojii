@@ -4,6 +4,9 @@ public record AddStoreInfoRequest(
         String openingTime,
         String closingTime,
         String directions,
-        String thumbnail
+        String thumbnail,
+        double latitude,
+        double longitude,
+        String dong
 
 ) {}

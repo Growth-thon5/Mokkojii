@@ -3,8 +3,10 @@ package com.example.mokkoji.domain.store.service;
 import com.example.mokkoji.domain.store.controller.dto.request.AddStoreInfoRequest;
 import com.example.mokkoji.domain.store.controller.dto.request.MenuRequest;
 import com.example.mokkoji.domain.store.controller.dto.request.StoreRegisterRequest;
+import com.example.mokkoji.domain.store.entity.Location;
 import com.example.mokkoji.domain.store.entity.Menu;
 import com.example.mokkoji.domain.store.entity.Store;
+import com.example.mokkoji.domain.store.repository.LocationRepository;
 import com.example.mokkoji.domain.store.repository.StoreRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreOwnerService {
 
     private final StoreRepository storeRepository;
+    private final LocationRepository locationRepository;
 
     // 가게 등록
     public Store createStore(StoreRegisterRequest request) {
@@ -25,9 +28,12 @@ public class StoreOwnerService {
     }
 
     public void addStoreInfo(Long storeId,@Valid AddStoreInfoRequest request) {
+        Location location=Location.of(request);
+        locationRepository.save(location);
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("Store not found"));
         store.addStoreInfo(request);
+        store.setLocation(location);
     }
 
     public void addMenu(Long storeId,MenuRequest request) {

@@ -59,8 +59,8 @@ public class Store extends BaseTimeEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StoreTag> storeTagList = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "location_id") // Store 테이블에 외래키로 location_id 생성
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
     private Location location;
 
     public static Store of(StoreRegisterRequest request) {
@@ -114,5 +114,9 @@ public class Store extends BaseTimeEntity {
         this.openingTime = request.openingTime();
         this.closingTime = request.closingTime();
         this.thumbnail = request.thumbnail();
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
