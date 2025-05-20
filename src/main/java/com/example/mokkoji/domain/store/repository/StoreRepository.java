@@ -18,4 +18,10 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     @Query("SELECT s FROM Store s WHERE s.name LIKE %:keyword%")
     List<Store> findByStoreName(String keyword);
+
+    @Query("SELECT s FROM Store s ORDER BY s.cheerCount DESC")
+    List<Store> findByCheerCount();
+
+    @Query("SELECT s FROM Store s ORDER BY s.openingDate DESC")
+    List<Store> findByCreatedAt();
 }
