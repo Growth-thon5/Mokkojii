@@ -1,60 +1,170 @@
-INSERT INTO location (id, latitude, longitude, address_dong)
-VALUES (1, 37.5610, 127.0380, '성동구 행당동'),
-       (2, 37.5612, 127.0385, '성동구 행당동'),
-       (3, 37.5608, 127.0375, '성동구 행당동'),
-       (4, 37.5615, 127.0388, '성동구 행당동'),
-       (5, 37.5613, 127.0390, '성동구 행당동'),
-
-       (6, 37.5618, 127.0360, '성동구 왕십리도선동'),
-       (7, 37.5616, 127.0355, '성동구 왕십리도선동'),
-       (8, 37.5620, 127.0352, '성동구 왕십리도선동'),
-       (9, 37.5623, 127.0358, '성동구 왕십리도선동'),
-       (10, 37.5621, 127.0362, '성동구 왕십리도선동'),
-
-       (11, 37.5555, 127.0301, '성동구 금호동'),
-       (12, 37.5559, 127.0304, '성동구 금호동'),
-       (13, 37.5562, 127.0307, '성동구 금호동'),
-       (14, 37.5565, 127.0310, '성동구 금호동'),
-       (15, 37.5568, 127.0313, '성동구 금호동'),
-
-       (16, 37.5601, 127.0411, '성동구 하왕십리동'),
-       (17, 37.5604, 127.0414, '성동구 하왕십리동'),
-       (18, 37.5607, 127.0417, '성동구 하왕십리동'),
-       (19, 37.5610, 127.0420, '성동구 하왕십리동'),
-       (20, 37.5613, 127.0423, '성동구 하왕십리동'),
-
-       (21, 37.5532, 127.0333, '성동구 응봉동'),
-       (22, 37.5535, 127.0335, '성동구 응봉동'),
-       (23, 37.5538, 127.0338, '성동구 응봉동'),
-       (24, 37.5541, 127.0341, '성동구 응봉동'),
-       (25, 37.5544, 127.0344, '성동구 응봉동'),
-
-       (26, 37.5630, 127.0401, '성동구 행당동'),
-       (27, 37.5633, 127.0404, '성동구 행당동'),
-       (28, 37.5636, 127.0407, '성동구 행당동'),
-       (29, 37.5639, 127.0410, '성동구 행당동'),
-       (30, 37.5642, 127.0413, '성동구 행당동'),
-
-       (31, 37.5645, 127.0381, '성동구 왕십리도선동'),
-       (32, 37.5648, 127.0384, '성동구 왕십리도선동'),
-       (33, 37.5651, 127.0387, '성동구 왕십리도선동'),
-       (34, 37.5654, 127.0390, '성동구 왕십리도선동'),
-       (35, 37.5657, 127.0393, '성동구 왕십리도선동'),
-
-       (36, 37.5520, 127.0290, '성동구 금호동'),
-       (37, 37.5523, 127.0293, '성동구 금호동'),
-       (38, 37.5526, 127.0296, '성동구 금호동'),
-       (39, 37.5529, 127.0299, '성동구 금호동'),
-       (40, 37.5532, 127.0302, '성동구 금호동'),
-
-       (41, 37.5620, 127.0430, '성동구 하왕십리동'),
-       (42, 37.5623, 127.0433, '성동구 하왕십리동'),
-       (43, 37.5626, 127.0436, '성동구 하왕십리동'),
-       (44, 37.5629, 127.0439, '성동구 하왕십리동'),
-       (45, 37.5632, 127.0442, '성동구 하왕십리동'),
-
-       (46, 37.5550, 127.0350, '성동구 응봉동'),
-       (47, 37.5553, 127.0353, '성동구 응봉동'),
-       (48, 37.5556, 127.0356, '성동구 응봉동'),
-       (49, 37.5559, 127.0359, '성동구 응봉동'),
-       (50, 37.5562, 127.0362, '성동구 응봉동');
+-- SQL INSERT statements for location data
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (1, 37.55257446, 126.9232714, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (2, 37.55610649, 126.9234489, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (3, 37.55543777, 126.9204618, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (4, 37.55047827, 126.9147069, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (5, 37.55770065, 126.9225305, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (6, 37.55372853, 126.9245038, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (7, 37.55047827, 126.9147069, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (8, 37.55603609, 126.9260859, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (9, 37.55580985, 126.9245243, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (10, 37.55465776, 126.9131517, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (11, 37.55149585, 126.9139588, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (12, 37.55327356, 126.9178046, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (13, 37.55534341, 126.9278521, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (14, 37.55487796, 126.9187082, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (15, 37.55528024, 126.9142261, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (16, 37.55605429, 126.9263801, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (17, 37.55465776, 126.9131517, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (18, 37.55721707, 126.9271712, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (19, 37.55350049, 126.9202601, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (20, 37.552096, 126.921846, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (21, 37.55426994, 126.9126089, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (22, 37.55435648, 126.9350281, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (23, 37.55441912, 126.9342585, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (24, 37.55485963, 126.9325153, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (25, 37.55383011, 126.9148842, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (26, 37.5560583, 126.933114, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (27, 37.55626143, 126.9262441, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (28, 37.55630762, 126.9280888, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (29, 37.55150867, 126.9193456, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (30, 37.5498607, 126.9206148, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (31, 37.55237007, 126.9142973, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (32, 37.55018455, 126.9198676, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (33, 37.55584828, 126.9147913, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (34, 37.55762802, 126.9216931, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (35, 37.55590197, 126.9277497, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (36, 37.55462859, 126.923043, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (37, 37.55748742, 126.9272615, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (38, 37.5588814, 126.9232084, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (39, 37.55516921, 126.9230877, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (40, 37.55422312, 126.9230094, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (41, 37.55625529, 126.9309861, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (42, 37.55477676, 126.929471, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (43, 37.55816281, 126.913374, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (44, 37.55039156, 126.9195392, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (45, 37.54953256, 126.9151833, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (46, 37.54927128, 126.9151949, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (47, 37.55018455, 126.9198676, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (48, 37.55721092, 126.9178116, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (49, 37.55485963, 126.9325153, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (50, 37.55423374, 126.9123939, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (51, 37.55269311, 126.9124976, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (52, 37.55483643, 126.9239934, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (53, 37.54875226, 126.9202991, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (54, 37.55617741, 126.9216833, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (55, 37.55609802, 126.9242864, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (56, 37.55074957, 126.9160985, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (57, 37.55656748, 126.9257798, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (58, 37.54946169, 126.9168808, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (59, 37.55290033, 126.912486, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (60, 37.55585165, 126.9341441, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (61, 37.55472891, 126.9118841, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (62, 37.55457585, 126.9120314, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (63, 37.55485775, 126.9293012, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (64, 37.55728521, 126.9210483, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (65, 37.55357568, 126.9250019, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (66, 37.55027666, 126.9228777, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (67, 37.55595533, 126.9266179, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (68, 37.55468824, 126.9321646, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (69, 37.55491533, 126.9354464, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (70, 37.54931626, 126.915093, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (71, 37.55470296, 126.9133553, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (72, 37.55610649, 126.9234489, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (73, 37.55255332, 126.9186089, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (74, 37.55312054, 126.9180198, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (75, 37.55563487, 126.9188092, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (76, 37.555255, 126.9306702, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (77, 37.55720475, 126.9219878, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (78, 37.55485101, 126.9331943, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (79, 37.55836908, 126.9251555, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (80, 37.55608143, 126.9265612, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (81, 37.55439663, 126.913367, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (82, 37.55574629, 126.9237661, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (83, 37.55305889, 126.9200908, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (84, 37.55344427, 126.9171141, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (85, 37.55245698, 126.9227396, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (86, 37.55502295, 126.919919, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (87, 37.5575632, 126.9191014, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (88, 37.56054097, 126.925923, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (89, 37.55382484, 126.9202372, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (90, 37.55748986, 126.9172793, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (91, 37.55772702, 126.9215232, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (92, 37.55884707, 126.9258794, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (93, 37.55236475, 126.9195484, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (94, 37.55078815, 126.9197651, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (95, 37.54997801, 126.9208863, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (96, 37.55468189, 126.9218886, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (97, 37.55614428, 126.9262103, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (98, 37.55435535, 126.9330137, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (99, 37.55878166, 126.9222464, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (100, 37.55665774, 126.9260287, '서교동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (101, 37.53032651, 126.8468713, '화곡1동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (102, 37.59348222, 127.0860329, '상봉2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (103, 37.57947556, 126.9887243, '가회동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (104, 37.65256313, 127.0489658, '창4동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (105, 37.57931259, 126.9822714, '삼청동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (106, 37.58528434, 127.0536203, '전농1동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (107, 37.53219057, 126.8768151, '목5동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (108, 37.56774977, 127.0562451, '답십리1동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (109, 37.52471136, 126.8848481, '양평1동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (110, 37.58471986, 126.997396, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (111, 37.58297195, 126.9990377, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (112, 37.58611642, 126.9992188, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (113, 37.58548568, 126.9967053, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (114, 37.58697237, 127.0002038, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (115, 37.58744989, 126.9990603, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (116, 37.59004475, 126.9995245, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (117, 37.58426035, 126.9972601, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (118, 37.58263858, 126.9988339, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (119, 37.5863777, 127.0013473, '혜화동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (120, 37.56228932, 126.9265891, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (121, 37.56168563, 126.9265557, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (122, 37.56152227, 126.9246883, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (123, 37.56630138, 126.916964, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (124, 37.56597972, 126.920892, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (125, 37.56155925, 126.926171, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (126, 37.5655849, 126.9233373, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (127, 37.56158648, 126.9264879, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (128, 37.56261424, 126.9275055, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (129, 37.56267612, 126.9255813, '연남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (130, 37.52334979, 127.0271952, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (131, 37.52360289, 127.0233717, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (132, 37.52236793, 127.0261541, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (133, 37.51937687, 127.0249201, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (134, 37.52351285, 127.0230436, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (135, 37.51823339, 127.0208249, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (136, 37.51924159, 127.0254969, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (137, 37.52474784, 127.0196502, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (138, 37.5195127, 127.0214248, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (139, 37.48740026, 126.9163956, '신사동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (140, 37.56535722, 126.9918052, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (141, 37.56678103, 127.0033957, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (142, 37.56553739, 126.9912618, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (143, 37.56859208, 126.9988794, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (144, 37.56586195, 126.9948046, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (145, 37.56503275, 126.9902772, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (146, 37.56614127, 126.9949744, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (147, 37.56644757, 126.9940688, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (148, 37.56568177, 126.9952461, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (149, 37.56595185, 126.9913976, '을지로동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (150, 37.53703011, 127.0019461, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (151, 37.53313774, 127.0038015, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (152, 37.53568763, 127.000973, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (153, 37.5323537, 127.0074219, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (154, 37.53230874, 127.0056456, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (155, 37.53082207, 127.0059962, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (156, 37.53458805, 127.0092437, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (157, 37.53787691, 127.0059515, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (158, 37.53449831, 126.9993325, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (159, 37.53507439, 127.0114953, '한남동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (160, 37.54948042, 127.0498602, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (161, 37.54698724, 127.0432952, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (162, 37.54604105, 127.0436794, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (163, 37.54609285, 127.0494053, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (164, 37.54670623, 127.0477196, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (165, 37.54662626, 127.0448679, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (166, 37.54630125, 127.0465312, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (167, 37.54605773, 127.0471647, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (168, 37.55045275, 127.0515923, '성수1가2동');
+INSERT INTO location (id, latitude, longitude, address_dong) VALUES (169, 37.54682447, 127.0448907, '성수1가2동');
