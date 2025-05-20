@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.mokkoji.domain.cheer.entity.CheerLike;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,9 +39,15 @@ public class CheerService {
         Store store = storeRepository.findById(request.storeId())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 가게입니다."));
 
+        // 한글 설명으로 TagType 찾기
+        List<TagType> tagTypes = request.tagList().stream()
+                .map(tag -> TagType.fromDescription(String.valueOf(tag)))
+                .collect(Collectors.toList());
+
+
         Cheer cheer = Cheer.builder()
                 .content(request.content())
-                .cheerTagList(request.tagList())
+                .cheerTagList(tagTypes)
                 .user(user)
                 .store(store)
                 .build();
