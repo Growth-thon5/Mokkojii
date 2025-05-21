@@ -47,11 +47,11 @@ public class StoreController {
     }
 
     // 가게 이름으로 검색하면 -> 응원리스트 목록
-//    @GetMapping("/search")
-//    public ApiResponse<List<StoreListResponse>> searchStore(@RequestParam String keyword) {
-//        List<Store> result = storeService.searchStoresByName(keyword);
-//        List<StoreListResponse> storeList = StoreListResponse.from(result);
-//        return ApiResponse.ok(storeList);
-//    }
+    @GetMapping("/search")
+    public ApiResponse<List<StoreListResponse>> searchStore(@RequestParam String keyword) {
+        List<Store> result = storeService.searchStoresByName(keyword);
+        List<StoreListResponse> storeList = StoreListResponse.from(result);
+        return ApiResponse.ok(storeList);
+    }
 
 }

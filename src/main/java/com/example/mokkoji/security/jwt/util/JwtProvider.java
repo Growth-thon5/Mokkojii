@@ -27,7 +27,7 @@ import static org.springframework.security.oauth2.core.OAuth2ErrorCodes.INVALID_
 public class JwtProvider {
 
     private static final Logger log = LoggerFactory.getLogger(JwtProvider.class);
-    private static final long ACCESS_TOKEN_EXPIRATION_TIME = 1000L * 60 * 30; // 30분
+    private static final long ACCESS_TOKEN_EXPIRATION_TIME = 1000L * 60 * 30 * 24 * 7; // 7일
     public static final long REFRESH_TOKEN_EXPIRATION_TIME = 1000L * 60 * 60 * 24 * 7; // 7일
     private final UserRepository userRepository;
 
