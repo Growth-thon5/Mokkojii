@@ -1,10 +1,19 @@
 services:
+  spring:
+    image: mokkoji/server:latest
+    container_name: mokkoji-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+
   # MySQL
   mysql:
     image: mysql:8.0
     container_name: mokkoji-mysql
     ports:
-      - '${MYSQL_PORT}:3306'
+      - '3306:3306'
     restart: always
 
     environment:
@@ -13,7 +22,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - ./mysql:/var/lib/mokkoji-mysql
+      - ./mysql:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
 
   # Redis
@@ -22,19 +31,5 @@ services:
     container_name: mokkoji-redis
     ports:
       - '6379:6379'
-
-
-  # MongoDB
-  mongodb:
-    image: mongo:6.0.16
-    container_name: mokkoji-mongodb
-    ports:
-      - '37017:27017'
-    volumes:
-      - ./mongodb/data:/data
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
 
 
