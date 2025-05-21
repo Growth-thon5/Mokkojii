@@ -1,7 +1,6 @@
 package com.example.mokkoji.domain.store.controller.dto.response;
 
 import com.example.mokkoji.domain.store.entity.Store;
-import com.example.mokkoji.domain.tag.entity.TagType;
 
 import java.util.List;
 

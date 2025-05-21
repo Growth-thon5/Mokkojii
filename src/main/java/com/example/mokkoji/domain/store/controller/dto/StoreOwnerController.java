@@ -6,8 +6,8 @@ import com.example.mokkoji.domain.store.controller.dto.request.MenuRequest;
 import com.example.mokkoji.domain.store.controller.dto.request.StoreRegisterRequest;
 import com.example.mokkoji.domain.store.entity.Store;
 import com.example.mokkoji.domain.store.service.StoreOwnerService;
-import com.example.mokkoji.domain.store.service.StoreService;
 import com.example.mokkoji.global.response.ApiResponse;
+import com.example.mokkoji.security.oauth2.kakao.aop.CurrentUserId;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +21,17 @@ public class StoreOwnerController {
 
     private final StoreOwnerService storeOwnerService;
 
-    // 가게 등록
+    // 가게 등록 -> location도 같이 넘겨줘야함
     @PostMapping
-    public ApiResponse<?> registerStore(@Valid @RequestBody StoreRegisterRequest request) {
-        Store created = storeOwnerService.createStore(request);
-        return ApiResponse.ok("가게가 생성되었습니다.");
+    public ApiResponse<?> registerStore(@CurrentUserId Long userId, @Valid @RequestBody StoreRegisterRequest request) {
+        Store created = storeOwnerService.createStore(request,userId);
+        return ApiResponse.ok(created);
     }
 
     // 가게 정보 마저 등록
     @PostMapping("/{storeId}/info")
-    public ApiResponse<?> addStoreInfo(@PathVariable Long storeId,@Valid @RequestBody AddStoreInfoRequest request) {
-        storeOwnerService.addStoreInfo(storeId,request);
+    public ApiResponse<?> addStoreInfo(@CurrentUserId Long userId,@PathVariable Long storeId,@Valid @RequestBody AddStoreInfoRequest request) {
+        storeOwnerService.addStoreInfo(userId,storeId,request);
         return ApiResponse.ok("가게가 정보가 추가되었습니다.");
     }
 

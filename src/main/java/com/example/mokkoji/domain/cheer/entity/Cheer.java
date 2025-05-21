@@ -77,11 +77,16 @@ public class Cheer extends BaseTimeEntity {
         store.incrementCheerCount();
     }
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
     public void addLike() {
         this.likeCount++;
     }
-
-    public void updateContent(String content) {
-        this.content = content;
+    public void decreaseLike() {
+        if (this.likeCount > 0) {
+            this.likeCount--;
+        }
     }
 }

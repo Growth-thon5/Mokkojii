@@ -4,7 +4,8 @@ import com.example.mokkoji.domain.cheer.controller.dto.request.CheerCommentReque
 import com.example.mokkoji.domain.cheer.controller.dto.request.CheerRequest;
 import com.example.mokkoji.domain.cheer.controller.dto.response.CheerCommentResponse;
 import com.example.mokkoji.domain.cheer.controller.dto.response.CheerResponse;
-import com.example.mokkoji.domain.cheer.service.CheerService;
+import com.example.mokkoji.domain.cheer.service.*;
+import com.example.mokkoji.security.oauth2.kakao.aop.CurrentUserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,16 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CheerController {
 
-    private final CheerService cheerService;
+    private final CheerCommentService cheerCommentService;
+    private final CheerLikeService cheerLikeService;
+    private final CheerQueryService cheerQueryService;
+    private final CheerImageService cheerImageService;
+    private final CheerWriteService cheerWriteService;
 
     // 응원글 작성
-    @PostMapping
-    public ResponseEntity<Void> writeCheer(@RequestBody CheerRequest request) {
-        cheerService.writeCheer(request);
+    @PostMapping("/{storeId}")
+    public ResponseEntity<Void> writeCheer(@CurrentUserId Long userId,@PathVariable Long storeId,@RequestBody CheerRequest request) {
+        cheerWriteService.writeCheer(request,userId,storeId);
         return ResponseEntity.ok().build();
     }
 
@@ -30,39 +35,54 @@ public class CheerController {
     @PatchMapping("/{messageId}")
     public ResponseEntity<Void> updateCheer(@PathVariable Long messageId,
                                             @RequestBody Map<String, String> body) {
-        cheerService.updateCheer(messageId, body.get("content"));
+        cheerWriteService.updateCheer(messageId, body.get("content"));
         return ResponseEntity.ok().build();
     }
 
     // 응원글 삭제
     @DeleteMapping("/{messageId}")
     public ResponseEntity<Void> deleteCheer(@PathVariable Long messageId) {
-        cheerService.deleteCheer(messageId);
+        cheerWriteService.deleteCheer(messageId);
         return ResponseEntity.ok().build();
     }
 
 
-
     // 좋아요 기능
     @PostMapping("/{messageId}/like")
-    public ResponseEntity<Void> likeCheer(@PathVariable Long messageId) {
-        cheerService.likeCheer(messageId);
+    public ResponseEntity<Void> likeCheer(@PathVariable Long messageId,@CurrentUserId Long userId) {
+        cheerLikeService.likeCheer(messageId,userId);
         return ResponseEntity.ok().build();
     }
 
     // 댓글 작성
     @PostMapping("/{messageId}/comments")
     public ResponseEntity<Void> addComment(@PathVariable Long messageId,
-                                           @RequestBody CheerCommentRequest request) {
-        cheerService.addComment(messageId, request);
+                                           @RequestBody CheerCommentRequest request,@CurrentUserId Long userId) {
+        cheerCommentService.addComment(messageId, request,userId);
         return ResponseEntity.ok().build();
     }
 
     // 댓글 목록 조회
     @GetMapping("/{messageId}/comments")
     public ResponseEntity<List<CheerCommentResponse>> getComments(@PathVariable Long messageId) {
-        return ResponseEntity.ok(cheerService.getCommentList(messageId));
+        return ResponseEntity.ok(cheerCommentService.getCommentList(messageId));
     }
+
+    //댓글 수정
+    @PatchMapping("/comments/{commentId}")
+    public ResponseEntity<Void> updateComment(@PathVariable Long commentId,
+                                              @RequestBody Map<String, String> body,@CurrentUserId Long userId) {
+        cheerCommentService.updateComment(commentId, userId, body.get("content"));
+        return ResponseEntity.ok().build();
+    }
+
+    //댓글 삭제
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId,@CurrentUserId Long userId) {
+        cheerCommentService.deleteComment(commentId, userId);
+        return ResponseEntity.ok().build();
+    }
+
     //태그 필터링
     //전체 피드 조회(인기순)
     @GetMapping("/feed")
@@ -70,34 +90,21 @@ public class CheerController {
             @RequestParam(defaultValue = "popular") String sortBy,  // 인기순이 기본
             @RequestParam(required = false) String tag
     ) {
-        return ResponseEntity.ok(cheerService.getAllCheersFiltered(sortBy, tag));
+        return ResponseEntity.ok(cheerQueryService.getAllCheersFiltered(sortBy, tag));
     }
 
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<List<CheerResponse>> getMyCheers(@PathVariable Long userId) {
-        return ResponseEntity.ok(cheerService.getCheersByUser(userId));
-    }
-    //댓글 삭제 수정
-    @PatchMapping("/comments/{commentId}/users/{userId}")
-    public ResponseEntity<Void> updateComment(@PathVariable Long commentId,
-                                              @PathVariable Long userId,
-                                              @RequestBody Map<String, String> body) {
-        cheerService.updateComment(commentId, userId, body.get("content"));
-        return ResponseEntity.ok().build();
+    // 내 응원글 조회
+    @GetMapping("/users")
+    public ResponseEntity<List<CheerResponse>> getMyCheers(@CurrentUserId Long userId) {
+        return ResponseEntity.ok(cheerQueryService.getCheersByUser(userId));
     }
 
-    @DeleteMapping("/comments/{commentId}/users/{userId}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId,
-                                              @PathVariable Long userId) {
-        cheerService.deleteComment(commentId, userId);
-        return ResponseEntity.ok().build();
-    }
-    @PostMapping("/{messageId}/like/users/{userId}")
-    public ResponseEntity<Void> likeCheer(@PathVariable Long messageId,
-                                          @PathVariable Long userId) {
-        cheerService.likeCheer(messageId, userId);
-        return ResponseEntity.ok().build();
-    }
+//    @PostMapping("/{messageId}/like/users/{userId}")
+//    public ResponseEntity<Void> likeCheer(@PathVariable Long messageId,
+//                                          @PathVariable Long userId) {
+//        cheerService.likeCheer(messageId, userId);
+//        return ResponseEntity.ok().build();
+//    }
 
 
 }

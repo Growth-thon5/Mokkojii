@@ -28,5 +28,7 @@ public class User {
     private AuthProvider provider; // KAKAO, EMAIL
     private String socialId;   // 해당 플랫폼의 고유 사용자 ID
 
-
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
