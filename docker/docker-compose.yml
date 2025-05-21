@@ -1,6 +1,6 @@
 services:
   spring:
-    image: mokkoji/server:latest
+    image: hwangjiyoung/server:latest
     container_name: mokkoji-app
     ports:
       - "8080:8080"
