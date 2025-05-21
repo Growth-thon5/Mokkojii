@@ -24,5 +24,10 @@ public class CheerLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cheer_id")
     private Cheer cheer;
+
+    public CheerLike(User user, Cheer cheer) {
+        this.user = user;
+        this.cheer = cheer;
+    }
 }
 

@@ -5,7 +5,6 @@ import com.example.mokkoji.domain.tag.entity.TagType;
 import java.util.List;
 
 public record CheerRequest(
-        Long storeId,
         Long userId,
         String content,
         List<String> tagList,
