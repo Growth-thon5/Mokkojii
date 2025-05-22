@@ -46,6 +46,10 @@ public class Store extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private StoreStatus status; // 승인 여부 (PENDING, APPROVED 등)
 
+    public void setStatus(StoreStatus status) {
+        this.status = status;
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;

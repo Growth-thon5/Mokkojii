@@ -6,6 +6,7 @@ import com.example.mokkoji.domain.cheer.controller.dto.response.CheerCommentResp
 import com.example.mokkoji.domain.cheer.controller.dto.response.CheerResponse;
 import com.example.mokkoji.domain.cheer.service.*;
 import com.example.mokkoji.security.oauth2.kakao.aop.CurrentUserId;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +27,13 @@ public class CheerController {
 
     // 응원글 작성
     @PostMapping("/{storeId}")
-    public ResponseEntity<Void> writeCheer(@CurrentUserId Long userId,@PathVariable Long storeId,@RequestBody CheerRequest request) {
-        cheerWriteService.writeCheer(request,userId,storeId);
+    public ResponseEntity<Void> writeCheer(@CurrentUserId Long userId,
+                                           @PathVariable Long storeId,
+                                           @RequestBody @Valid CheerRequest request) {
+        cheerWriteService.writeCheer(request, userId, storeId);
         return ResponseEntity.ok().build();
     }
+
 
     // 응원글 수정
     @PatchMapping("/{messageId}")
@@ -98,6 +102,8 @@ public class CheerController {
     public ResponseEntity<List<CheerResponse>> getMyCheers(@CurrentUserId Long userId) {
         return ResponseEntity.ok(cheerQueryService.getCheersByUser(userId));
     }
+
+
 
 //    @PostMapping("/{messageId}/like/users/{userId}")
 //    public ResponseEntity<Void> likeCheer(@PathVariable Long messageId,

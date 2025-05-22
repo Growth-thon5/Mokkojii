@@ -1,6 +1,7 @@
 package com.example.mokkoji.domain.store.repository;
 
 import com.example.mokkoji.domain.store.entity.Store;
+import com.example.mokkoji.domain.store.entity.StoreStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
 
     @Query("SELECT s FROM Store s ORDER BY s.openingDate DESC")
     List<Store> findByCreatedAt();
+
+    List<Store> findByStatus(StoreStatus status);
+
 }

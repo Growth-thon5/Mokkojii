@@ -17,12 +17,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:" + uploadDir);
-    }
-
     public WebConfig(CurrentUserIdArgumentResolver currentUserIdArgumentResolver) {
         this.currentUserIdArgumentResolver = currentUserIdArgumentResolver;
     }
@@ -32,4 +26,12 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(currentUserIdArgumentResolver);
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 절대 경로로 변환해서 리소스 핸들링
+        String absolutePath = uploadDir.startsWith("/") ? uploadDir : System.getProperty("user.dir") + "/" + uploadDir;
+
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:" + absolutePath + "/");
+    }
 }
