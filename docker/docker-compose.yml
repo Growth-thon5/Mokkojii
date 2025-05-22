@@ -1,6 +1,8 @@
 services:
   spring:
     image: hwangjiyoung/server:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
     container_name: mokkoji-app
     ports:
       - "8080:8080"
