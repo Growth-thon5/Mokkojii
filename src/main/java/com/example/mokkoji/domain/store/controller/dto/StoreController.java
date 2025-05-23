@@ -38,7 +38,7 @@ public class StoreController {
     }
 
     // 가게 상세 조회
-    @GetMapping(value = "/{storeId}", produces = "application/json; charset=UTF-8")
+    @GetMapping("/{storeId:\\d+}")
     public ApiResponse<StoreDetailResponse> getStore(@PathVariable Long storeId) {
         Store store = storeService.getStore(storeId);
         return ApiResponse.ok(StoreDetailResponse.from(store));

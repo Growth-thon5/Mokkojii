@@ -43,11 +43,11 @@ public class RequestMatcherHolder {
             new RequestInfo(GET, "/api/stores/**", null),
 
 
-
             // message
             new RequestInfo(GET, "/api/messages/**", null),
 
-
+            //location
+            new RequestInfo(GET, "/api/locations/**", null),
 
             //chart
             new RequestInfo(GET, "/api/charts/**", null),
