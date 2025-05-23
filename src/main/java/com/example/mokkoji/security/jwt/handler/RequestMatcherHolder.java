@@ -16,12 +16,14 @@ import static org.springframework.http.HttpMethod.*;
 @Component
 public class RequestMatcherHolder {
 
+    // 이부분은
     private static final List<RequestInfo> REQUEST_INFO_LIST = List.of(
             // 공통
             new RequestInfo(OPTIONS, "/**", null),
             new RequestInfo(GET, "/", null),
             new RequestInfo(GET, "/api/auth", null),
             new RequestInfo(POST, "/error", null),
+ //
 
             // auth
             new RequestInfo(POST, "/api/auth/join", null),
@@ -29,11 +31,27 @@ public class RequestMatcherHolder {
             new RequestInfo(POST, "/api/v1/oauth2/**", null),
 
             // user
-            new RequestInfo(GET, "/api/v1/users/**", Role.PERSONAL),
+            new RequestInfo(GET, "/api/v1/users/**", null),
+
+
 
             // admin
-            new RequestInfo(GET, "/api/PERSONAL/**", Role.PERSONAL),
-            new RequestInfo(POST, "/api/admin/**", Role.ADMIN),
+            new RequestInfo(GET, "/api/PERSONAL/**", null),
+
+
+            // store
+            new RequestInfo(GET, "/api/stores/**", null),
+
+
+
+            // message
+            new RequestInfo(GET, "/api/messages/**", null),
+
+
+
+            //chart
+            new RequestInfo(GET, "/api/charts/**", null),
+
 
             // static resources
             new RequestInfo(GET, "/docs/**", null),

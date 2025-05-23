@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/charts")
+@RequestMapping("api/charts")
 @RequiredArgsConstructor
 public class ChartController {
 

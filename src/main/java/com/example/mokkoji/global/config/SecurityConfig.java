@@ -1,5 +1,6 @@
 package com.example.mokkoji.global.config;
 
+import com.example.mokkoji.security.jwt.handler.JwtAuthenticationFilter;
 import com.example.mokkoji.security.oauth2.kakao.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ public class SecurityConfig {
 
     private final OAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -36,7 +38,8 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
-                                        "/swagger-ui.html"
+                                        "/swagger-ui.html",
+                                        "/api/auth/**", "/login/oauth2/**"
                                 ).permitAll()
 
                                 // 요청 허용
@@ -48,10 +51,9 @@ public class SecurityConfig {
 
                 .oauth2Login(oauth ->
                         oauth.userInfoEndpoint(c -> c.userService(oAuth2UserService))
-                                .successHandler(oAuth2SuccessHandler));
+                                .successHandler(oAuth2SuccessHandler))
 
-        // JWT 인증 필터를 스프링 시큐리티 필터 체인에 넣는 방식
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
