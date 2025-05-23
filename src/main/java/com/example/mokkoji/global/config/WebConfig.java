@@ -1,13 +1,22 @@
 package com.example.mokkoji.global.config;
 
 import com.example.mokkoji.security.oauth2.kakao.aop.CurrentUserIdArgumentResolver;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -43,4 +52,26 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(3600); // preflight 캐시 시간 (초)
     }
 
+    @Bean
+    @Primary
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, false);
+        return mapper;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        jsonConverter.setObjectMapper(objectMapper());
+
+        List<MediaType> supportedMediaTypes = new ArrayList<>();
+        supportedMediaTypes.add(new MediaType("application", "json", StandardCharsets.UTF_8));
+        supportedMediaTypes.add(new MediaType("text", "json", StandardCharsets.UTF_8));
+        jsonConverter.setSupportedMediaTypes(supportedMediaTypes);
+
+        jsonConverter.setDefaultCharset(StandardCharsets.UTF_8);
+
+        converters.add(0, jsonConverter);
+    }
 }
