@@ -1,6 +1,7 @@
 package com.example.mokkoji.security.jwt.handler;
 
 import com.example.mokkoji.security.jwt.exception.JwtAuthenticationException;
+import com.example.mokkoji.security.jwt.handler.JwtAuthenticationFailureHandler;
 import com.example.mokkoji.security.jwt.util.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider tokenProvider;
     private final JwtAuthenticationFailureHandler failureHandler;
     private final RequestMatcherHolder requestMatcherHolder;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -59,7 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    // 필터를 안거치도록 지정
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
 

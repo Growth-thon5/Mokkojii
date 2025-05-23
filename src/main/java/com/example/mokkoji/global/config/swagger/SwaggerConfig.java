@@ -1,9 +1,8 @@
 package com.example.mokkoji.global.config.swagger;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
@@ -13,34 +12,32 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-@OpenAPIDefinition(
-        info = @Info(
-                title = "mokkoji API",
-                description = "mokkoji 프로젝트의 API 명세서입니다.",
-                version = "v0.0.1"
-        )
-)
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI openAPI() {
-        SecurityScheme accessSecurityScheme = getAccessSecurityScheme();
+        @Bean
+        public OpenAPI openAPI() {
+                SecurityScheme accessSecurityScheme = getAccessSecurityScheme();
 
-        return new OpenAPI()
-                .addServersItem(new Server().url("/"))
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth", accessSecurityScheme))
-                .security(List.of(
-                        new SecurityRequirement().addList("bearerAuth")
-                ));
-    }
+                return new OpenAPI()
+                        .info(new Info()
+                                .title("mokkoji API")
+                                .description("mokkoji 프로젝트의 API 명세서입니다.")
+                                .version("3.0.1") // OpenAPI 명시적 버전 설정
+                        )
+                        .addServersItem(new Server().url("/"))
+                        .components(new Components()
+                                .addSecuritySchemes("bearerAuth", accessSecurityScheme))
+                        .security(List.of(
+                                new SecurityRequirement().addList("bearerAuth")
+                        ));
+        }
 
-    private SecurityScheme getAccessSecurityScheme() {
-        return new SecurityScheme()
-                .type(SecurityScheme.Type.HTTP)
-                .scheme("bearer")
-                .bearerFormat("JWT")
-                .in(SecurityScheme.In.HEADER)
-                .name("Authorization");
-    }
+        private SecurityScheme getAccessSecurityScheme() {
+                return new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                        .in(SecurityScheme.In.HEADER)
+                        .name("Authorization");
+        }
 }
