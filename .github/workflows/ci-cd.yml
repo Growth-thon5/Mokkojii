@@ -129,6 +129,7 @@ jobs:
           script: |
             # docker-compose 명령어 실행
             cd /home/ubuntu/app/docker
+            docker compose down
             docker compose pull spring
             docker compose up -d spring
 
