@@ -30,6 +30,14 @@ public class WebConfig implements WebMvcConfigurer {
     public WebConfig(CurrentUserIdArgumentResolver currentUserIdArgumentResolver) {
         this.currentUserIdArgumentResolver = currentUserIdArgumentResolver;
     }
+    @Override
+    public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173") // 프론트 도메인 (Vite 등)
+                .allowedMethods("GET", "POST", "PATCH", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true); // 로그인 쿠키 등을 주고받는 경우 필요
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
