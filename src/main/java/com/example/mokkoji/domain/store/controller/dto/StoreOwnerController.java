@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("api/stores")
 @RequiredArgsConstructor
@@ -22,25 +21,24 @@ public class StoreOwnerController {
     private final StoreOwnerService storeOwnerService;
 
     // 가게 등록 -> location도 같이 넘겨줘야함
-    @PostMapping
+    @PostMapping(produces = "application/json; charset=UTF-8")
     public ApiResponse<?> registerStore(@CurrentUserId Long userId, @Valid @RequestBody StoreRegisterRequest request) {
         Store created = storeOwnerService.createStore(request,userId);
         return ApiResponse.ok(created);
     }
 
     // 가게 정보 마저 등록
-    @PostMapping("/{storeId}/info")
-    public ApiResponse<?> addStoreInfo(@CurrentUserId Long userId,@PathVariable Long storeId,@Valid @RequestBody AddStoreInfoRequest request) {
+    @PostMapping(value = "/{storeId}/info", produces = "application/json; charset=UTF-8")
+    public ApiResponse<?> addStoreInfo(@CurrentUserId Long userId, @PathVariable Long storeId, @Valid @RequestBody AddStoreInfoRequest request) {
         storeOwnerService.addStoreInfo(userId,storeId,request);
         return ApiResponse.ok("가게가 정보가 추가되었습니다.");
     }
 
-    //  가게 상품 등록
-    @PostMapping("/{storeId}/products")
-    public ApiResponse<?> addMenu(@PathVariable Long storeId,@Valid @RequestBody MenuListRequest request) {
+    // 가게 상품 등록
+    @PostMapping(value = "/{storeId}/products", produces = "application/json; charset=UTF-8")
+    public ApiResponse<?> addMenu(@PathVariable Long storeId, @Valid @RequestBody MenuListRequest request) {
         List<MenuRequest> menus = request.menus();
         for (MenuRequest menu : menus) {
-
             storeOwnerService.addMenu(storeId,menu);
         }
         return ApiResponse.ok("메뉴가 생성되었습니다.");
@@ -50,11 +48,10 @@ public class StoreOwnerController {
 
     // 가게 상세 정보 수정
 
-    // 상품 상세 정보 수정 
+    // 상품 상세 정보 수정
 
     // 소상공인 확인서 인증
-    
+
     // 내가 등록한 가게 목록 조회
 
-    
 }

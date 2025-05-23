@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("api/charts")
 @RequiredArgsConstructor
@@ -21,14 +20,14 @@ public class ChartController {
     private final ChartService chartService;
 
     // 핫플 랭킹(응원수)
-    @GetMapping("/hotplaces")
+    @GetMapping(value = "/hotplaces", produces = "application/json; charset=UTF-8")
     public ApiResponse<List<StoreListResponse>> getHotplaceRanking() {
         List<Store> result = chartService.getHotplaceRanking();
         List<StoreListResponse> response = StoreListResponse.from(result);
         return ApiResponse.ok(response);
     }
 
-    @GetMapping("/new")
+    @GetMapping(value = "/new", produces = "application/json; charset=UTF-8")
     public ApiResponse<List<StoreListResponse>> getNewStores() {
         List<Store> result = chartService.getNewStores();
         List<StoreListResponse> response = StoreListResponse.from(result);
@@ -36,14 +35,11 @@ public class ChartController {
     }
 
     // 태그별 응원 랭킹 -> RequestParam으로 받기
-    @GetMapping
+    @GetMapping(produces = "application/json; charset=UTF-8")
     public ApiResponse<List<StoreListResponse>> getHotplaceByTag(@RequestParam String tag) {
         TagType tagType = TagType.fromDescription(tag);
         List<Store> result = chartService.getRankingByTag(tagType);
         List<StoreListResponse> response = StoreListResponse.from(result);
         return ApiResponse.ok(response);
     }
-
-
-
 }

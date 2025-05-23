@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
 @RestController
 @RequestMapping("/api/messages")
 @RequiredArgsConstructor
@@ -63,7 +62,7 @@ public class CheerController {
     }
 
     // 댓글 목록 조회
-    @GetMapping("/{messageId}/comments")
+    @GetMapping(value = "/{messageId}/comments", produces = "application/json; charset=UTF-8")
     public ResponseEntity<List<CheerCommentResponse>> getComments(@PathVariable Long messageId) {
         return ResponseEntity.ok(cheerCommentService.getCommentList(messageId));
     }
@@ -85,7 +84,7 @@ public class CheerController {
 
     //태그 필터링
     //전체 피드 조회(인기순)
-    @GetMapping("/feed")
+    @GetMapping(value = "/feed", produces = "application/json; charset=UTF-8")
     public ResponseEntity<List<CheerResponse>> getFeed(
             @RequestParam(defaultValue = "popular") String sortBy,  // 인기순이 기본
             @RequestParam(required = false) String tag
@@ -94,7 +93,7 @@ public class CheerController {
     }
 
     // 내 응원글 조회
-    @GetMapping("/users")
+    @GetMapping(value = "/users", produces = "application/json; charset=UTF-8")
     public ResponseEntity<List<CheerResponse>> getMyCheers(@CurrentUserId Long userId) {
         return ResponseEntity.ok(cheerQueryService.getCheersByUser(userId));
     }
