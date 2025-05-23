@@ -12,6 +12,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 
 @Slf4j
@@ -46,6 +47,20 @@ public class GlobalExceptionHandler {
         log.error("[예외 발생] Exception: {}", ex.getMessage());
         return ApiResponse.fail(new CustomException(ErrorCode.INTERNAL_SERVER_ERROR,ex.getMessage()));
     }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<?> handleValidationException(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getDefaultMessage())
+                .findFirst()
+                .orElse("잘못된 요청입니다.");
+
+        log.error("[유효성 검사 실패] {}", errorMessage);
+        return ApiResponse.fail(new CustomException(ErrorCode.BAD_REQUEST, errorMessage));
+    }
+
 //
 //    @ExceptionHandler(NotVerifiedException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
