@@ -4,12 +4,14 @@ import com.example.mokkoji.domain.store.controller.dto.request.AddStoreInfoReque
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Location {
 
     @Id
