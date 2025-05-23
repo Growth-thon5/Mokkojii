@@ -36,6 +36,8 @@ public class RequestMatcherHolder {
 
 
             // admin
+            new RequestInfo(GET, "/api/**", null),
+
             new RequestInfo(GET, "/api/PERSONAL/**", null),
 
 
