@@ -38,24 +38,14 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html",
-                                        "/api/auth/**", "/login/oauth2/**"
-                                ).permitAll()
                                 .requestMatchers("/**").permitAll()
-                          .requestMatchers("/api/locations/**").permitAll()
-                                .requestMatchers("/api/storeList/**").permitAll()
-
-//                      .anyRequest().authenticated()
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(c -> c.userService(oAuth2UserService))
-                        .successHandler(oAuth2SuccessHandler))
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                        .successHandler(oAuth2SuccessHandler));
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
