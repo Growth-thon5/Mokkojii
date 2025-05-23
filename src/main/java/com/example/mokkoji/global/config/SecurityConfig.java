@@ -38,17 +38,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/**",
-                                        "/swagger-ui.html",
-                                        "/api/auth/**", "/login/oauth2/**"
-                                ).permitAll()
                                 .requestMatchers("/**").permitAll()
-                          .requestMatchers("/api/locations/**").permitAll()
-                                .requestMatchers("/api/storeList/**").permitAll()
-
-//                      .anyRequest().authenticated()
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

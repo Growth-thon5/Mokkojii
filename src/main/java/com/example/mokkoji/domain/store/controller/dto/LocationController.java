@@ -27,14 +27,14 @@ public class LocationController {
         List<LocationResponse> locationList = LocationResponse.from(result);
         return ApiResponse.ok(locationList);
     }
-
     // 모든 가게 조회
-    @GetMapping("/storeList")
+    @GetMapping("/allStore")
     public ApiResponse<List<StoreListResponse>> getStores() {
         List<Store> result = storeService.findStoresList();
         List<StoreListResponse> storeList = StoreListResponse.from(result);
         return ApiResponse.ok(storeList);
     }
+
 
 
 }
