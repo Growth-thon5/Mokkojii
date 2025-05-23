@@ -21,14 +21,6 @@ public class StoreController {
 
     private final StoreService storeService;
 
-    // 위치 정보 가져오기
-    @GetMapping(value = "/location", produces = "application/json; charset=UTF-8")
-    public ApiResponse<List<LocationResponse>> getAllLocations() {
-        List<Location> result = storeService.getAllLocations();
-        List<LocationResponse> locationList = LocationResponse.from(result);
-        return ApiResponse.ok(locationList);
-    }
-
     // 00동 검색하면 00동내에 있는 가게 목록
     @GetMapping(value = "/dong", produces = "application/json; charset=UTF-8")
     public ApiResponse<List<StoreListResponse>> getStoresByDong(@RequestParam String dong) {
@@ -38,7 +30,7 @@ public class StoreController {
     }
 
     // 모든 가게 조회
-    @GetMapping(produces = "application/json; charset=UTF-8")
+    @GetMapping("/all")
     public ApiResponse<List<StoreListResponse>> getStores() {
         List<Store> result = storeService.findStoresList();
         List<StoreListResponse> storeList = StoreListResponse.from(result);
