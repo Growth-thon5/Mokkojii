@@ -27,6 +27,7 @@ public class SwaggerConfig {
         SecurityScheme accessSecurityScheme = getAccessSecurityScheme();
 
         return new OpenAPI()
+                .openapi("3.0.3")  // 여기 버전 명시 추가
                 .addServersItem(new Server().url("/"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", accessSecurityScheme))
