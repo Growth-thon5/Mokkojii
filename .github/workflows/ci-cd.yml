@@ -111,6 +111,15 @@ jobs:
           source: ".env"
           target: "/home/ubuntu/app/docker"
 
+      - name: 2-1. sqls 폴더 복사
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          source: "./docker/sqls"
+          target: "/home/ubuntu/app"
+
       - name: 3. docker-compose.yml 전달
         uses: appleboy/scp-action@master
         with:
