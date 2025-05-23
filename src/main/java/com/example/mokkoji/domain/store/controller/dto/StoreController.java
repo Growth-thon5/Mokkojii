@@ -29,13 +29,6 @@ public class StoreController {
         return ApiResponse.ok(storeList);
     }
 
-    // 모든 가게 조회
-    @GetMapping("/all")
-    public ApiResponse<List<StoreListResponse>> getStores() {
-        List<Store> result = storeService.findStoresList();
-        List<StoreListResponse> storeList = StoreListResponse.from(result);
-        return ApiResponse.ok(storeList);
-    }
 
     // 가게 상세 조회
     @GetMapping("/{storeId:\\d+}")

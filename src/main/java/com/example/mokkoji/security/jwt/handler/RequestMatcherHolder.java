@@ -41,7 +41,7 @@ public class RequestMatcherHolder {
 
             // store
             new RequestInfo(GET, "/api/stores/**", null),
-
+            new RequestInfo(GET, "/api/storeList/**", null),
 
             // message
             new RequestInfo(GET, "/api/messages/**", null),

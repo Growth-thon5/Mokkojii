@@ -1,7 +1,9 @@
 package com.example.mokkoji.domain.store.controller.dto;
 
 import com.example.mokkoji.domain.store.controller.dto.response.LocationResponse;
+import com.example.mokkoji.domain.store.controller.dto.response.StoreListResponse;
 import com.example.mokkoji.domain.store.entity.Location;
+import com.example.mokkoji.domain.store.entity.Store;
 import com.example.mokkoji.domain.store.service.StoreService;
 import com.example.mokkoji.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,17 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
-@RequestMapping("api/locations")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class LocationController {
     private final StoreService storeService;
 
     // 위치 정보 가져오기
-    @GetMapping
+    @GetMapping("/locations")
     public ApiResponse<List<LocationResponse>> getAllLocations() {
+        System.out.println("getAllLocations 호출됨");
         List<Location> result = storeService.getAllLocations();
         List<LocationResponse> locationList = LocationResponse.from(result);
         return ApiResponse.ok(locationList);
     }
+
+    // 모든 가게 조회
+    @GetMapping("/storeList")
+    public ApiResponse<List<StoreListResponse>> getStores() {
+        List<Store> result = storeService.findStoresList();
+        List<StoreListResponse> storeList = StoreListResponse.from(result);
+        return ApiResponse.ok(storeList);
+    }
+
+
 }

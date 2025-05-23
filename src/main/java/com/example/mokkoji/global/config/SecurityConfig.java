@@ -45,8 +45,12 @@ public class SecurityConfig {
                                         "/api/auth/**", "/login/oauth2/**"
                                 ).permitAll()
                                 .requestMatchers("/**").permitAll()
+                          .requestMatchers("/api/locations/**").permitAll()
+                                .requestMatchers("/api/storeList/**").permitAll()
+
 //                      .anyRequest().authenticated()
                 )
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(c -> c.userService(oAuth2UserService))
