@@ -1,7 +1,5 @@
 package com.example.mokkoji.global.config.swagger;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -11,15 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
-
 @Configuration
-@OpenAPIDefinition(
-        info = @Info(
-                title = "mokkoji API",
-                description = "mokkoji 프로젝트의 API 명세서입니다.",
-                version = "3.1.0"
-        )
-)
 public class SwaggerConfig {
 
     @Bean
@@ -27,7 +17,7 @@ public class SwaggerConfig {
         SecurityScheme accessSecurityScheme = getAccessSecurityScheme();
 
         return new OpenAPI()
-                .openapi("3.0.3")  // 여기 버전 명시 추가
+                .openapi("3.0.3") // 버전 명시
                 .addServersItem(new Server().url("/"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", accessSecurityScheme))
