@@ -17,7 +17,7 @@ import java.util.List;
         info = @Info(
                 title = "mokkoji API",
                 description = "mokkoji 프로젝트의 API 명세서입니다.",
-                version = "v0.0.1"
+                version = "3.1.0"
         )
 )
 public class SwaggerConfig {
