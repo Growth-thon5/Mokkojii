@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Slf4j
 @RequiredArgsConstructor
 @Component
@@ -26,42 +27,47 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
+            /// 헤더에서 토큰 꺼내기
             String authorization = request.getHeader("Authorization");
 
-            // 토큰이 없으면 바로 다음 필터로 통과
-            if (authorization == null || !authorization.startsWith("Bearer ")) {
-                log.info("Authorization 헤더에 토큰이 없거나 Bearer로 시작하지 않음, 필터 통과");
-                filterChain.doFilter(request, response);
-                return;
-            }
+            if (authorization != null && authorization.startsWith("Bearer ")) {
+                String token = authorization.substring(7);
+                log.info("JWT token: {}", token);
 
-            String token = authorization.substring(7);
-            log.info("JWT token: {}", token);
+                /// 토큰 검증
+                if (tokenProvider.validateToken(token)) {
+                    var authentication = tokenProvider.getAuthentication(token);
 
-            // 토큰 검증
-            if (tokenProvider.validateToken(token)) {
-                var authentication = tokenProvider.getAuthentication(token);
+                    /// 시큐리티 홀더에 해당 멤버 저장
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } else {
+                    throw new JwtAuthenticationException("토큰이 잘못 되었습니다.");
+                }
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
             } else {
-                throw new JwtAuthenticationException("토큰이 잘못 되었습니다.");
+                throw new JwtAuthenticationException("토큰이 없습니다.");
             }
-
-        } catch (JwtAuthenticationException ex) {
+        }
+        catch (JwtAuthenticationException ex) {
             log.warn("JWT 인증 실패: {}", ex.getMessage());
+            // 실패 핸들러 호출
             failureHandler.commence(request, response, ex);
             return;
         }
+        log.info("통과");
 
         filterChain.doFilter(request, response);
     }
 
+    // 필터를 안거치도록 지정
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String uri = request.getRequestURI();
-        boolean shouldSkip = uri.startsWith("/api/locations") || uri.startsWith("/api/storeList");
 
-        log.info("요청 URI: {}, 필터 생략 여부: {}", uri, shouldSkip);
+        boolean shouldSkip = requestMatcherHolder.getRequestMatchersByMinRole(null)
+                .matches(request);
+
+        log.info("요청 URL: {} | 필터 생략 여부: {}", request.getRequestURI(), shouldSkip);
+
         return shouldSkip;
     }
 
