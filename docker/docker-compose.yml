@@ -27,6 +27,8 @@ services:
       - LANG=C.UTF-8
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./sqls:/docker-entrypoint-initdb.d
+
     command:
       - --default-authentication-plugin=mysql_native_password
       - --character-set-server=utf8mb4
