@@ -27,14 +27,14 @@ public class AuthController {
     private final AuthService authService;
     
     // 이메일 회원가입
-    @PostMapping("/join")
+    @PostMapping(value = "/join", produces = "application/json; charset=UTF-8")
     public ApiResponse<String> join(@Valid @RequestBody JoinRequest joinRequest) throws NoSuchAlgorithmException {
         userService.join(joinRequest);
         return ApiResponse.ok("회원가입이 완료되었습니다.");
     }
 
     // 이메일 로그인
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "application/json; charset=UTF-8")
     public ApiResponse<String> login(@RequestBody @Valid LoginRequest loginRequest, HttpServletResponse response) {
         // 사용자 정보 검증
         String accessToken = authService.authenticateUser(loginRequest.email(), loginRequest.password(), response);
@@ -42,14 +42,14 @@ public class AuthController {
     }
 
     // refresh 토큰으로 accessToken 재발급
-    @PostMapping("/refresh")
+    @PostMapping(value = "/refresh", produces = "application/json; charset=UTF-8")
     public ApiResponse<String> refresh(HttpServletRequest request) {
         String newAccessToken = jwtTokenService.reissueByRefreshToken(request);
         return ApiResponse.ok(newAccessToken);
     }
 
     // 로그아웃
-    @PostMapping("/logout")
+    @PostMapping(value = "/logout", produces = "application/json; charset=UTF-8")
     public ApiResponse<String> logout(HttpServletRequest request, HttpServletResponse response) {
         jwtTokenService.deleteRefreshToken(request,response);
         return ApiResponse.ok("로그아웃 성공");
